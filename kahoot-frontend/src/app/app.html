@@ -1,2 +1,6 @@
-<p-button label="Submit" />
+<p-button
+  [label]="themeService.isDark() ? 'Switch to Light' : 'Switch to Dark'"
+  [icon]="themeService.isDark() ? 'pi pi-sun' : 'pi pi-moon'"
+  (onClick)="themeService.toggle()"
+/>
 <router-outlet />

@@ -1,13 +1,14 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Button } from 'primeng/button';
+import { ThemeService } from './service/theme.service';
 
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, Button],
   templateUrl: './app.html',
-  styleUrl: './app.scss'
+  styleUrl: './app.scss',
 })
 export class App {
-  protected readonly title = signal('kahoot-frontend');
+  readonly themeService = inject(ThemeService);
 }
