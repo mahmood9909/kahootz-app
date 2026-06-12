@@ -10,7 +10,21 @@
     <span class="text-base font-bold tracking-tight">{{ appName }}</span>
   </a>
 
-  <div class="flex-1"></div>
+  <!-- Nav items -->
+  <ul class="flex flex-1 items-center gap-1">
+    @for (item of navItems; track item.path) {
+      <li>
+        <a
+          [routerLink]="item.path"
+          routerLinkActive="text-foreground font-semibold"
+          [routerLinkActiveOptions]="{ exact: item.path === '/' }"
+          class="rounded-md px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+        >
+          {{ item.name }}
+        </a>
+      </li>
+    }
+  </ul>
 
   <!-- Right cluster: theme toggle + auth avatar -->
   <div class="flex items-center gap-1">
@@ -29,15 +43,52 @@
       <button hlmBtn variant="ghost" size="icon" [hlmDropdownMenuTrigger]="userMenu" align="end" aria-label="User menu">
         <ng-icon name="lucideUser" class="size-5" />
       </button>
+
       <ng-template #userMenu>
-        <nav-bar-user-menu-dropdown />
+        <hlm-dropdown-menu class="w-48">
+          <hlm-dropdown-menu-group>
+            <button hlmDropdownMenuItem routerLink="/dashboard">
+              <ng-icon name="lucideLayoutDashboard" class="size-4" />
+              <span>Dashboard</span>
+            </button>
+          </hlm-dropdown-menu-group>
+          <hlm-dropdown-menu-separator />
+          <hlm-dropdown-menu-group>
+            <button hlmDropdownMenuItem>
+              <ng-icon name="lucideUser" class="size-4" />
+              <span>Profile</span>
+            </button>
+            <button hlmDropdownMenuItem>
+              <ng-icon name="lucideSettings" class="size-4" />
+              <span>Settings</span>
+            </button>
+          </hlm-dropdown-menu-group>
+          <hlm-dropdown-menu-separator />
+          <button hlmDropdownMenuItem>
+            <ng-icon name="lucideLogOut" class="size-4" />
+            <span>Log Out</span>
+          </button>
+        </hlm-dropdown-menu>
       </ng-template>
     } @else {
       <button hlmBtn variant="ghost" size="icon" [hlmDropdownMenuTrigger]="authMenu" align="end" aria-label="Sign in or sign up">
         <ng-icon name="lucideUser" class="size-5" />
       </button>
+
       <ng-template #authMenu>
-        <nav-bar-auth-menu-dropdown />
+        <hlm-dropdown-menu class="w-40">
+          <hlm-dropdown-menu-group>
+            <button hlmDropdownMenuItem routerLink="/signin">
+              <ng-icon name="lucideLogIn" class="size-4" />
+              <span>Sign In</span>
+            </button>
+            <hlm-dropdown-menu-separator />
+            <button hlmDropdownMenuItem routerLink="/signup">
+              <ng-icon name="lucideUserPlus" class="size-4" />
+              <span>Sign Up</span>
+            </button>
+          </hlm-dropdown-menu-group>
+        </hlm-dropdown-menu>
       </ng-template>
     }
 
