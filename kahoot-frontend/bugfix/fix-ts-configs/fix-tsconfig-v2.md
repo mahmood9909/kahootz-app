@@ -74,28 +74,6 @@ Test Files  1 passed (1)
 This pins the output layout to `src/` and silences the warning. Build and tests both pass after the change.
 
 
-### Q: tsconfig.app.json warning is gone but tsconfig.spec.json still shows "The common source directory is './src/app'…". Why?
-
-**A:** The two tsconfigs include different files, so TypeScript infers a different common root for each:
-
-| tsconfig | included files | inferred common root |
-|---|---|---|
-| `tsconfig.app.json` | `src/**/*.ts` → picks up `src/main.ts` | `src/` ✅ matches `rootDir: "src"` |
-| `tsconfig.spec.json` | `src/**/*.spec.ts` → only `src/app/app.spec.ts` | `src/app/` ⚠ broader than needed |
-
-Setting `"rootDir": "src"` in both configs is still **correct** — TypeScript requires only that rootDir be an *ancestor* of all included files, not an exact match. Running `tsc -p tsconfig.spec.json --noEmit` confirms zero errors or warnings after the fix.
-
-**The warning in your IDE is stale.** Restart the TypeScript language server to clear it:
-
-- **VS Code**: `Ctrl+Shift+P` → `TypeScript: Restart TS Server`
-- **WebStorm / Rider**: `File` → `Invalidate Caches` or restart the IDE
-
-## Final Result
-
-```
-tsc -p tsconfig.app.json --noEmit   → no output (clean)
-tsc -p tsconfig.spec.json --noEmit  → no output (clean)
-
-pnpm build   → Application bundle generation complete
-pnpm test    → Test Files 1 passed | Tests 2 passed
-```
+## Overall Result 
+tsconfig.app.json is fixed but for for tsconfig.spec.json is not fix wjy I am getting "The common source directory of 'tsconfig.spec.json' is './src/app'. The 'rootDir' setting must be explicitly set to this or another path to adjust your output's file layout.
+  Visit https://aka.ms/ts6 for migration information."  
