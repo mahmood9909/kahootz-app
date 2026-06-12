@@ -14,6 +14,6 @@ export class ThemeService {
   toggle(): void {
     const next: Theme = this._theme() === 'light' ? 'dark' : 'light';
     this._theme.set(next);
-    this.document.documentElement.classList.toggle('app-dark', next === 'dark');
+    this.document.documentElement.classList.toggle('dark', next === 'dark');
   }
 }

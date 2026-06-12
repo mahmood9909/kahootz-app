@@ -1,8 +1,27 @@
-/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
-/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@ui-lib/*": [
+        "src/app/ui-lib/*"
+      ],
+      "@ui-lib/calendar": [
+        "./src/app/ui-lib/calendar/src/index.ts"
+      ],
+      "@ui-lib/utils": [
+        "./src/app/ui-lib/utils/src/index.ts"
+      ],
+      "@ui-lib/button": [
+        "./src/app/ui-lib/button/src/index.ts"
+      ],
+      "@ui-lib/icon": [
+        "./src/app/ui-lib/icon/src/index.ts"
+      ],
+      "@ui-lib/select": [
+        "./src/app/ui-lib/select/src/index.ts"
+      ]
+    },
     "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,

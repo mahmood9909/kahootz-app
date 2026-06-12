@@ -1,6 +1,10 @@
-<p-button
-  [label]="themeService.isDark() ? 'Switch to Light' : 'Switch to Dark'"
-  [icon]="themeService.isDark() ? 'pi pi-sun' : 'pi pi-moon'"
-  (onClick)="themeService.toggle()"
-/>
+<div class="fixed top-4 right-4">
+  <button hlmBtn variant="outline" size="icon" (click)="themeService.toggle()" aria-label="Toggle theme">
+    @if (themeService.isDark()) {
+      <ng-icon name="lucideSun" />
+    } @else {
+      <ng-icon name="lucideMoon" />
+    }
+  </button>
+</div>
 <router-outlet />
