@@ -4,9 +4,9 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideLogIn, lucideMoon, lucideSun, lucideUser, lucideUserPlus } from '@ng-icons/lucide';
 import { HlmButtonImports } from '@ui-lib/button';
 import { HlmDropdownMenuImports } from '@ui-lib/dropdown-menu';
-import { AuthService } from '../../../core/services/auth.service';
-import { ThemeService } from '../../../core/services/theme.service';
-import { environment } from '../../../../environments/environment';
+import { AuthService } from '@core/services/auth.service';
+import { ThemeService } from '@core/services/theme.service';
+import { environment } from '@env/environment';
 
 interface NavItem {
   name: string;

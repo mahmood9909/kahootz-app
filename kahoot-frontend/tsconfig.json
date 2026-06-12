@@ -2,6 +2,12 @@
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
+      "@core/*": [
+        "./src/app/core/*"
+      ],
+      "@env/*": [
+        "./src/environments/*"
+      ],
       "@ui-lib/*": [
         "./src/app/ui-lib/*"
       ],

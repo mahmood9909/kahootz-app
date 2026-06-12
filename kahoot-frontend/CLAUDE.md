@@ -73,6 +73,20 @@ Angular 21 only reads `postcss.config.json` — never `.mjs` or `.js`.
 Tailwind CSS entry point is `src/tailwind.css`, not `src/styles.scss`
 (the CLI's `tailwindCssFile` detection is a known quirk — it does not affect the build).
 
+## Path aliases
+
+| Alias | Resolves to |
+|-------|-------------|
+| `@core/*` | `src/app/core/*` |
+| `@env/*` | `src/environments/*` |
+| `@ui-lib/*` | `src/app/ui-lib/*` |
+
+Example:
+```ts
+import { AuthService } from '@core/services/auth.service';
+import { environment } from '@env/environment';
+```
+
 ## Conventions
 
 - Standalone components only (no NgModules)
