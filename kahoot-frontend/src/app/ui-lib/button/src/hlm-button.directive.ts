@@ -1,5 +1,5 @@
 import { BrnButton } from '@spartan-ng/brain/button';
-import { computed, Directive, input } from '@angular/core';
+import { computed, Directive, inject, InjectionToken, input, type Provider } from '@angular/core';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { hlm } from '../../utils';
 
@@ -36,6 +36,17 @@ export const buttonVariants = cva(
 
 export type ButtonVariants = VariantProps<typeof buttonVariants>;
 
+export interface BrnButtonConfig {
+  variant?: ButtonVariants['variant'];
+  size?: ButtonVariants['size'];
+}
+
+export const BRN_BUTTON_CONFIG = new InjectionToken<BrnButtonConfig>('BrnButtonConfig');
+
+export function provideBrnButtonConfig(config: BrnButtonConfig): Provider {
+  return { provide: BRN_BUTTON_CONFIG, useValue: config };
+}
+
 @Directive({
   selector: 'button[hlmBtn], a[hlmBtn]',
   exportAs: 'hlmBtn',
@@ -46,8 +57,9 @@ export type ButtonVariants = VariantProps<typeof buttonVariants>;
   },
 })
 export class HlmButton {
-  public readonly variant = input<ButtonVariants['variant']>('default');
-  public readonly size = input<ButtonVariants['size']>('default');
+  private readonly _config = inject(BRN_BUTTON_CONFIG, { optional: true });
+  public readonly variant = input<ButtonVariants['variant']>(this._config?.variant ?? 'default');
+  public readonly size = input<ButtonVariants['size']>(this._config?.size ?? 'default');
 
   protected readonly _computedClass = computed(() =>
     hlm(buttonVariants({ variant: this.variant(), size: this.size() })),

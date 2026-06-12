@@ -1,0 +1,57 @@
+<nav class="fixed top-0 inset-x-0 z-50 flex h-16 items-center gap-6 border-b border-border/50 bg-background/80 px-6 backdrop-blur-md">
+  <!-- Logo -->
+  <a routerLink="/" class="flex shrink-0 items-center">
+    <img src="assets/logo.svg" alt="Kahootz" class="h-8" />
+  </a>
+
+  <!-- Nav items -->
+  <ul class="flex flex-1 items-center gap-1">
+    @for (item of navItems; track item.path) {
+      <li>
+        <a
+          [routerLink]="item.path"
+          routerLinkActive="text-foreground font-semibold"
+          [routerLinkActiveOptions]="{ exact: item.path === '/' }"
+          class="rounded-md px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+        >
+          {{ item.name }}
+        </a>
+      </li>
+    }
+  </ul>
+
+  <!-- Auth area -->
+  <div class="ml-auto flex shrink-0 items-center">
+    @if (auth.isLoggedIn()) {
+      <!-- Logged-in: avatar + user dropdown -->
+      <button hlmBtn variant="ghost" size="icon" [hlmDropdownMenuTrigger]="userMenu" aria-label="User menu">
+        <ng-icon name="lucideUser" class="size-5" />
+      </button>
+
+      <ng-template #userMenu>
+        <hlm-dropdown-menu class="w-48">
+          <hlm-dropdown-menu-group>
+            <button hlmDropdownMenuItem>Profile</button>
+            <button hlmDropdownMenuItem>Settings</button>
+          </hlm-dropdown-menu-group>
+          <hlm-dropdown-menu-separator />
+          <button hlmDropdownMenuItem>Log Out</button>
+        </hlm-dropdown-menu>
+      </ng-template>
+    } @else {
+      <!-- Logged-out: avatar icon + auth dropdown -->
+      <button hlmBtn variant="ghost" size="icon" [hlmDropdownMenuTrigger]="authMenu" aria-label="Sign in or sign up">
+        <ng-icon name="lucideUser" class="size-5" />
+      </button>
+
+      <ng-template #authMenu>
+        <hlm-dropdown-menu class="w-40">
+          <hlm-dropdown-menu-group>
+            <button hlmDropdownMenuItem routerLink="/signin">Sign In</button>
+            <button hlmDropdownMenuItem routerLink="/signup">Sign Up</button>
+          </hlm-dropdown-menu-group>
+        </hlm-dropdown-menu>
+      </ng-template>
+    }
+  </div>
+</nav>

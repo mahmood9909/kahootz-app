@@ -10,7 +10,7 @@
         "./src/app/ui-lib/calendar/src/index.ts"
       ],
       "@ui-lib/utils": [
-        "./src/app/ui-lib/utils/src/index.ts"
+        "./src/app/ui-lib/utils.ts"
       ],
       "@ui-lib/button": [
         "./src/app/ui-lib/button/src/index.ts"
@@ -20,6 +20,15 @@
       ],
       "@ui-lib/select": [
         "./src/app/ui-lib/select/src/index.ts"
+      ],
+      "@ui-lib/alert": [
+        "./src/app/ui-lib/alert/src/index.ts"
+      ],
+      "@ui-lib/alert-dialog": [
+        "./src/app/ui-lib/alert-dialog/src/index.ts"
+      ],
+      "@ui-lib/dropdown-menu": [
+        "./src/app/ui-lib/dropdown-menu/src/index.ts"
       ]
     },
     "strict": true,

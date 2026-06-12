@@ -1,4 +1,7 @@
-<div class="fixed top-4 right-4">
+<app-nav-bar />
+
+<!-- Theme toggle -->
+<div class="fixed top-4 right-4 z-50">
   <button hlmBtn variant="outline" size="icon" (click)="themeService.toggle()" aria-label="Toggle theme">
     @if (themeService.isDark()) {
       <ng-icon name="lucideSun" />
@@ -7,4 +10,7 @@
     }
   </button>
 </div>
-<router-outlet />
+
+<main class="pt-16">
+  <router-outlet />
+</main>

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 40" fill="none">
+  <!-- Game controller icon -->
+  <rect x="2" y="8" width="36" height="24" rx="10" fill="#6366f1"/>
+  <rect x="14" y="14" width="4" height="12" rx="2" fill="white"/>
+  <rect x="10" y="18" width="12" height="4" rx="2" fill="white"/>
+  <circle cx="28" cy="17" r="2.5" fill="white"/>
+  <circle cx="33" cy="22" r="2.5" fill="white"/>
+  <circle cx="23" cy="22" r="2.5" fill="white"/>
+  <circle cx="28" cy="27" r="2.5" fill="white"/>
+  <!-- Wordmark -->
+  <text x="46" y="27" font-family="system-ui, sans-serif" font-size="18" font-weight="700" fill="#6366f1">Kahootz</text>
+</svg>
