@@ -1,10 +1,9 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
       "@ui-lib/*": [
-        "src/app/ui-lib/*"
+        "./src/app/ui-lib/*"
       ],
       "@ui-lib/calendar": [
         "./src/app/ui-lib/calendar/src/index.ts"
