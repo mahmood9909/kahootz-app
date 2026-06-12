@@ -27,19 +27,31 @@ ng g @spartan-ng/cli:info --json              # print spartan project context
 
 ```
 src/
+├── environments/
+│   ├── environment.ts              # production env (appName, etc.)
+│   └── environment.development.ts  # dev env (swapped by fileReplacements)
+├── assets/                         # static files served at /assets/
+│   ├── logo-light.svg
+│   └── logo-dark.svg
 ├── app/
-│   ├── app.ts            # root component
-│   ├── app.html          # root template
-│   ├── app.scss          # root styles
-│   ├── app.config.ts     # app-level providers
-│   ├── app.routes.ts     # route definitions
-│   └── ui-lib/           # local spartan Helm copies (@ui-lib/* alias)
-│       ├── utils.ts      # hlm() = clsx + tailwind-merge
-│       └── <name>/       # one folder per installed component
-│           ├── hlm-<name>.directive.ts
-│           └── index.ts
-├── tailwind.css          # Tailwind v4 entry + design tokens + dark mode vars
-├── styles.scss           # global SCSS (body theme colours, resets)
+│   ├── app.ts                # root component (never move)
+│   ├── app.html              # root template
+│   ├── app.scss              # root styles
+│   ├── app.config.ts         # app-level providers
+│   ├── app.routes.ts         # route definitions
+│   ├── core/
+│   │   └── services/         # singleton services (AuthService, ThemeService)
+│   ├── pages/                # routed page components (lazy-loaded)
+│   │   ├── sign-in/
+│   │   ├── sign-up/
+│   │   └── dashboard/
+│   ├── shared/
+│   │   └── components/       # reusable UI components (NavBarComponent, etc.)
+│   └── ui-lib/               # Spartan UI Helm copies — NEVER move this
+│       ├── utils.ts
+│       └── <name>/src/
+├── tailwind.css              # Tailwind v4 entry + design tokens + dark mode vars
+├── styles.scss               # global SCSS (body theme colours, resets)
 ├── index.html
 └── main.ts
 ```

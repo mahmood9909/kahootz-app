@@ -1,7 +1,13 @@
 <nav class="fixed top-0 inset-x-0 z-50 flex h-16 items-center gap-6 border-b border-border/50 bg-background/80 px-6 backdrop-blur-md">
+
   <!-- Logo -->
-  <a routerLink="/" class="flex shrink-0 items-center">
-    <img src="assets/logo.svg" alt="Kahootz" class="h-8" />
+  <a routerLink="/" class="flex shrink-0 items-center gap-2">
+    @if (theme.isDark()) {
+      <img src="assets/logo-dark.svg" [alt]="appName" class="size-8" aria-hidden="true" />
+    } @else {
+      <img src="assets/logo-light.svg" [alt]="appName" class="size-8" aria-hidden="true" />
+    }
+    <span class="text-base font-bold tracking-tight">{{ appName }}</span>
   </a>
 
   <!-- Nav items -->
@@ -20,11 +26,21 @@
     }
   </ul>
 
-  <!-- Auth area -->
-  <div class="ml-auto flex shrink-0 items-center">
+  <!-- Right cluster: theme toggle + auth avatar -->
+  <div class="flex items-center gap-1">
+
+    <!-- Theme toggle -->
+    <button hlmBtn variant="ghost" size="icon" (click)="theme.toggle()" aria-label="Toggle theme">
+      @if (theme.isDark()) {
+        <ng-icon name="lucideSun" class="size-5" />
+      } @else {
+        <ng-icon name="lucideMoon" class="size-5" />
+      }
+    </button>
+
+    <!-- Auth avatar -->
     @if (auth.isLoggedIn()) {
-      <!-- Logged-in: avatar + user dropdown -->
-      <button hlmBtn variant="ghost" size="icon" [hlmDropdownMenuTrigger]="userMenu" aria-label="User menu">
+      <button hlmBtn variant="ghost" size="icon" [hlmDropdownMenuTrigger]="userMenu" align="end" aria-label="User menu">
         <ng-icon name="lucideUser" class="size-5" />
       </button>
 
@@ -39,19 +55,26 @@
         </hlm-dropdown-menu>
       </ng-template>
     } @else {
-      <!-- Logged-out: avatar icon + auth dropdown -->
-      <button hlmBtn variant="ghost" size="icon" [hlmDropdownMenuTrigger]="authMenu" aria-label="Sign in or sign up">
+      <button hlmBtn variant="ghost" size="icon" [hlmDropdownMenuTrigger]="authMenu" align="end" aria-label="Sign in or sign up">
         <ng-icon name="lucideUser" class="size-5" />
       </button>
 
       <ng-template #authMenu>
         <hlm-dropdown-menu class="w-40">
           <hlm-dropdown-menu-group>
-            <button hlmDropdownMenuItem routerLink="/signin">Sign In</button>
-            <button hlmDropdownMenuItem routerLink="/signup">Sign Up</button>
+            <button hlmDropdownMenuItem routerLink="/signin">
+              <ng-icon name="lucideLogIn" class="size-4" />
+              <span>Sign In</span>
+            </button>
+            <hlm-dropdown-menu-separator />
+            <button hlmDropdownMenuItem routerLink="/signup">
+              <ng-icon name="lucideUserPlus" class="size-4" />
+              <span>Sign Up</span>
+            </button>
           </hlm-dropdown-menu-group>
         </hlm-dropdown-menu>
       </ng-template>
     }
+
   </div>
 </nav>
