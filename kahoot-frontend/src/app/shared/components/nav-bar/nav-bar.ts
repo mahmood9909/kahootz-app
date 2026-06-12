@@ -25,11 +25,8 @@ export class NavBarComponent {
   readonly theme = inject(ThemeService);
   readonly appName = environment.appName;
 
-  readonly loggedOutNav: NavItem[] = [{ name: 'Home', path: '/' }];
-  readonly loggedInNav: NavItem[] = [
-    { name: 'Home', path: '/' },
-    { name: 'Dashboard', path: '/dashboard' },
-  ];
+  readonly loggedOutNav: NavItem[] = [];
+  readonly loggedInNav: NavItem[] = [{ name: 'Dashboard', path: '/dashboard' }];
 
   get navItems(): NavItem[] {
     return this.auth.isLoggedIn() ? this.loggedInNav : this.loggedOutNav;

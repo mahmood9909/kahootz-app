@@ -4,7 +4,7 @@ export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    loadComponent: () => import('./pages/dashboard/dashboard').then((m) => m.DashboardComponent),
+    loadComponent: () => import('./pages/home/home').then((m) => m.HomeComponent),
   },
   {
     path: 'signin',
