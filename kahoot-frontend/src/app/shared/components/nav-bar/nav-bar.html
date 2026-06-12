@@ -47,6 +47,13 @@
       <ng-template #userMenu>
         <hlm-dropdown-menu class="w-48">
           <hlm-dropdown-menu-group>
+            <button hlmDropdownMenuItem routerLink="/dashboard">
+              <ng-icon name="lucideLayoutDashboard" class="size-4" />
+              <span>Dashboard</span>
+            </button>
+          </hlm-dropdown-menu-group>
+          <hlm-dropdown-menu-separator />
+          <hlm-dropdown-menu-group>
             <button hlmDropdownMenuItem>Profile</button>
             <button hlmDropdownMenuItem>Settings</button>
           </hlm-dropdown-menu-group>

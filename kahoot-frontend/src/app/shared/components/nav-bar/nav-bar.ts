@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideLogIn, lucideMoon, lucideSun, lucideUser, lucideUserPlus } from '@ng-icons/lucide';
+import { lucideLayoutDashboard, lucideLogIn, lucideMoon, lucideSun, lucideUser, lucideUserPlus } from '@ng-icons/lucide';
 import { HlmButtonImports } from '@ui-lib/button';
 import { HlmDropdownMenuImports } from '@ui-lib/dropdown-menu';
 import { AuthService } from '@core/services/auth.service';
@@ -17,7 +17,7 @@ interface NavItem {
   selector: 'app-nav-bar',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RouterLink, RouterLinkActive, NgIcon, HlmButtonImports, HlmDropdownMenuImports],
-  providers: [provideIcons({ lucideUser, lucideSun, lucideMoon, lucideLogIn, lucideUserPlus })],
+  providers: [provideIcons({ lucideUser, lucideSun, lucideMoon, lucideLogIn, lucideUserPlus, lucideLayoutDashboard })],
   templateUrl: './nav-bar.html',
 })
 export class NavBarComponent {
@@ -26,7 +26,7 @@ export class NavBarComponent {
   readonly appName = environment.appName;
 
   readonly loggedOutNav: NavItem[] = [];
-  readonly loggedInNav: NavItem[] = [{ name: 'Dashboard', path: '/dashboard' }];
+  readonly loggedInNav: NavItem[] = [];
 
   get navItems(): NavItem[] {
     return this.auth.isLoggedIn() ? this.loggedInNav : this.loggedOutNav;
