@@ -136,35 +136,17 @@ import { QuizQuestion } from '../quiz-create';
                   </div>
                 </div>
 
-                <!-- Right — live preview card -->
-                <div class="flex flex-col gap-3 rounded-xl border border-border bg-card p-4">
-                  <p class="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Preview</p>
-
-                  <!-- Question title -->
-                  <div class="min-h-10 rounded-lg bg-muted/40 px-3 py-2 text-sm font-medium">
-                    {{ newQuestionName() || 'Your question text' }}
-                  </div>
-
-                  <!-- Options -->
-                  <div class="grid gap-2" [class]="newQuestionType() === 'true-false' ? 'grid-cols-2' : 'grid-cols-2'">
-                    @if (newQuestionType() === 'multiple-choice') {
-                      @for (opt of mcOptions; track opt.label) {
-                        <div class="flex items-center gap-2 rounded-lg border border-border bg-background px-3 py-2 text-sm">
-                          <span class="flex size-5 shrink-0 items-center justify-center rounded-full bg-muted text-[10px] font-bold">
-                            {{ opt.label }}
-                          </span>
-                          <span class="text-xs text-muted-foreground">Option {{ opt.label }}</span>
-                        </div>
-                      }
-                    } @else {
-                      <div class="flex items-center justify-center rounded-lg border border-border bg-background px-3 py-2.5 text-sm font-medium text-green-600">
-                        True
-                      </div>
-                      <div class="flex items-center justify-center rounded-lg border border-border bg-background px-3 py-2.5 text-sm font-medium text-destructive">
-                        False
-                      </div>
-                    }
-                  </div>
+                <!-- Right — description -->
+                <div class="flex flex-col gap-1.5">
+                  <label hlmLabel for="new-q-desc">Description <span class="text-muted-foreground font-normal">(optional)</span></label>
+                  <textarea
+                    hlmInput
+                    id="new-q-desc"
+                    rows="6"
+                    placeholder="Add context or notes for this question…"
+                    class="resize-none overflow-y-auto"
+                    (input)="newQuestionDescription.set($any($event.target).value)"
+                  ></textarea>
                 </div>
 
               </div>
@@ -185,22 +167,27 @@ export class QuizCreateQuestionsSidebarComponent {
   readonly questions = input.required<QuizQuestion[]>();
   readonly activeIndex = input.required<number>();
   readonly selectQuestion = output<number>();
-  readonly addQuestion = output<{ name: string; type: 'multiple-choice' | 'true-false' }>();
+  readonly addQuestion = output<{ name: string; description: string; type: 'multiple-choice' | 'true-false' }>();
   readonly deleteQuestion = output<number>();
 
   readonly newQuestionName = signal('');
+  readonly newQuestionDescription = signal('');
   readonly newQuestionType = signal<'multiple-choice' | 'true-false'>('multiple-choice');
-  readonly mcOptions = [{ label: 'A' }, { label: 'B' }, { label: 'C' }, { label: 'D' }];
 
   readonly questionTypeLabel = (value: string): string =>
     ({ 'multiple-choice': 'Multiple Choice', 'true-false': 'True / False' })[value] ?? value;
 
   initDialog(): void {
     this.newQuestionName.set(`Question ${this.questions().length + 1}`);
+    this.newQuestionDescription.set('');
     this.newQuestionType.set('multiple-choice');
   }
 
   confirmAdd(): void {
-    this.addQuestion.emit({ name: this.newQuestionName(), type: this.newQuestionType() });
+    this.addQuestion.emit({
+      name: this.newQuestionName(),
+      description: this.newQuestionDescription(),
+      type: this.newQuestionType(),
+    });
   }
 }

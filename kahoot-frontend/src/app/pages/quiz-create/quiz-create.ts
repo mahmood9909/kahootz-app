@@ -11,6 +11,7 @@ import { QuizCreateQuestionsSidebarComponent } from './components/quiz-create-qu
 export interface QuizQuestion {
   id: number;
   title: string;
+  description?: string;
   type: 'multiple-choice' | 'true-false';
   points: number;
   timeLimit: number;
@@ -115,10 +116,11 @@ export class QuizCreateComponent {
   readonly activeIndex = signal(0);
   readonly activeQuestion = computed(() => this.questions()[this.activeIndex()]);
 
-  addQuestion(payload: { name: string; type: 'multiple-choice' | 'true-false' }): void {
+  addQuestion(payload: { name: string; description: string; type: 'multiple-choice' | 'true-false' }): void {
     const newQuestion: QuizQuestion = {
       id: Date.now(),
       title: payload.name || `Question ${this.questions().length + 1}`,
+      description: payload.description || undefined,
       type: payload.type,
       points: 10,
       timeLimit: 30,
