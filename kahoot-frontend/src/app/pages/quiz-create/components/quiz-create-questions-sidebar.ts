@@ -5,6 +5,7 @@ import { lucidePlus, lucideTrash2 } from '@ng-icons/lucide';
 import { HlmAlertDialogImports } from '@ui-lib/alert-dialog';
 import { HlmBadgeImports } from '@ui-lib/badge';
 import { HlmButtonImports } from '@ui-lib/button';
+import { HlmCardImports } from '@ui-lib/card';
 import { HlmDialogImports } from '@ui-lib/dialog';
 import { HlmInputImports } from '@ui-lib/input';
 import { HlmLabelImports } from '@ui-lib/label';
@@ -14,7 +15,7 @@ import { QuizQuestion } from '../quiz-create';
 @Component({
   selector: 'quiz-create-questions-sidebar',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgClass, NgIcon, HlmButtonImports, HlmBadgeImports, HlmDialogImports, HlmAlertDialogImports, HlmSelectImports, HlmInputImports, HlmLabelImports],
+  imports: [NgClass, NgIcon, HlmButtonImports, HlmBadgeImports, HlmCardImports, HlmDialogImports, HlmAlertDialogImports, HlmSelectImports, HlmInputImports, HlmLabelImports],
   providers: [provideIcons({ lucidePlus, lucideTrash2 })],
   template: `
     <div class="flex h-full flex-col overflow-hidden bg-muted/20">
@@ -100,12 +101,13 @@ import { QuizQuestion } from '../quiz-create';
             Add Question
           </button>
           <ng-template hlmDialogPortal>
-            <hlm-dialog-content class="sm:!max-w-lg">
-              <hlm-dialog-header>
-                <h3 hlmDialogTitle>Add Question</h3>
-              </hlm-dialog-header>
+            <div hlmCard class="w-full max-w-[calc(100%-2rem)] sm:max-w-lg px-6">
 
-              <div class="flex flex-col gap-4">
+              <div hlmDialogHeader>
+                <h3 hlmDialogTitle>Add Question</h3>
+              </div>
+
+              <div class="flex flex-col gap-4 py-2">
 
                 <div class="flex flex-col gap-1.5">
                   <label hlmLabel for="new-q-name">Question Name</label>
@@ -152,11 +154,12 @@ import { QuizQuestion } from '../quiz-create';
 
               </div>
 
-              <div class="flex justify-end gap-2 pt-2">
+              <div class="flex justify-end gap-2 pb-2">
                 <button hlmBtn variant="outline" brnDialogClose>Cancel</button>
                 <button hlmBtn hlmDialogClose (click)="confirmAdd()">Create</button>
               </div>
-            </hlm-dialog-content>
+
+            </div>
           </ng-template>
         </hlm-dialog>
       </div>
