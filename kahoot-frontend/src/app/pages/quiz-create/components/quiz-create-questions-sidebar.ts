@@ -101,13 +101,14 @@ import { QuizQuestion } from '../quiz-create';
             Add Question
           </button>
           <ng-template hlmDialogPortal>
-            <div hlmCard class="w-full max-w-[calc(100%-2rem)] sm:max-w-lg px-6">
+            <hlm-card class="w-full sm:max-w-lg">
 
-              <div hlmDialogHeader>
-                <h3 hlmDialogTitle>Add Question</h3>
-              </div>
+              <hlm-card-header>
+                <h3 hlmCardTitle>Add Question</h3>
+                <p hlmCardDescription>Fill in the details for your new question.</p>
+              </hlm-card-header>
 
-              <div class="flex flex-col gap-4 py-2">
+              <div hlmCardContent class="flex flex-col gap-4">
 
                 <div class="flex flex-col gap-1.5">
                   <label hlmLabel for="new-q-name">Question Name</label>
@@ -154,12 +155,12 @@ import { QuizQuestion } from '../quiz-create';
 
               </div>
 
-              <div class="flex justify-end gap-2 pb-2">
+              <hlm-card-footer class="justify-end gap-2">
                 <button hlmBtn variant="outline" brnDialogClose>Cancel</button>
                 <button hlmBtn hlmDialogClose (click)="confirmAdd()">Create</button>
-              </div>
+              </hlm-card-footer>
 
-            </div>
+            </hlm-card>
           </ng-template>
         </hlm-dialog>
       </div>
