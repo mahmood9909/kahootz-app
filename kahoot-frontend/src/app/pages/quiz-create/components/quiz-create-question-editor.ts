@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { HlmInputImports } from '@ui-lib/input';
 import { HlmLabelImports } from '@ui-lib/label';
 import { HlmSelectImports } from '@ui-lib/select';
@@ -17,7 +17,8 @@ import { QuizQuestion } from '../quiz-create';
       <!-- Type -->
       <div class="flex flex-col gap-1.5">
         <label hlmLabel>Type</label>
-        <hlm-select [value]="question().type" [itemToString]="questionTypeLabel">
+        <hlm-select [value]="question().type" [itemToString]="questionTypeLabel"
+          (valueChange)="onTypeChange($any($event))">
           <hlm-select-trigger class="w-full">
             <hlm-select-value placeholder="Select type…" />
           </hlm-select-trigger>
@@ -47,11 +48,13 @@ import { QuizQuestion } from '../quiz-create';
       <div class="grid grid-cols-2 gap-3">
         <div class="flex flex-col gap-1.5">
           <label hlmLabel for="q-points">Points</label>
-          <input hlmInput id="q-points" type="number" [value]="question().points" min="0" />
+          <input hlmInput id="q-points" type="number" [value]="question().points" min="0"
+            (change)="onPointsChange($any($event.target).valueAsNumber)" />
         </div>
         <div class="flex flex-col gap-1.5">
           <label hlmLabel for="q-time">Time (s)</label>
-          <input hlmInput id="q-time" type="number" [value]="question().timeLimit" min="5" />
+          <input hlmInput id="q-time" type="number" [value]="question().timeLimit" min="5"
+            (change)="onTimeLimitChange($any($event.target).valueAsNumber)" />
         </div>
       </div>
 
@@ -75,7 +78,24 @@ import { QuizQuestion } from '../quiz-create';
 })
 export class QuizCreateQuestionEditorComponent {
   readonly question = input.required<QuizQuestion>();
+  readonly questionChange = output<QuizQuestion>();
 
   readonly questionTypeLabel = (value: string): string =>
     ({ 'multiple-choice': 'Multiple Choice', 'true-false': 'True / False' })[value] ?? value;
+
+  onTypeChange(type: 'multiple-choice' | 'true-false'): void {
+    const q = this.question();
+    const options = type === 'multiple-choice'
+      ? (q.options.length === 2 ? ['', '', '', ''] : q.options)
+      : ['True', 'False'];
+    this.questionChange.emit({ ...q, type, options });
+  }
+
+  onPointsChange(points: number): void {
+    if (!isNaN(points)) this.questionChange.emit({ ...this.question(), points });
+  }
+
+  onTimeLimitChange(timeLimit: number): void {
+    if (!isNaN(timeLimit)) this.questionChange.emit({ ...this.question(), timeLimit });
+  }
 }

@@ -56,7 +56,6 @@ const MOCK_QUESTIONS: QuizQuestion[] = [
     QuizCreateQuestionPreviewComponent,
     QuizCreateQuestionEditorComponent,
   ],
-  providers: [],
   template: `
     <div class="flex h-[calc(100vh-4rem)] flex-col overflow-hidden">
 
@@ -85,12 +84,24 @@ const MOCK_QUESTIONS: QuizQuestion[] = [
       <!-- 3-column workspace -->
       <div class="grid min-h-0 flex-1 grid-cols-[260px_1fr_320px] divide-x divide-border/50">
         <quiz-create-questions-sidebar
-          [questions]="questions"
+          [questions]="questions()"
           [activeIndex]="activeIndex()"
           (selectQuestion)="activeIndex.set($event)"
+          (addQuestion)="addQuestion($event)"
+          (deleteQuestion)="removeQuestion($event)"
         />
-        <quiz-create-question-preview [question]="activeQuestion()" />
-        <quiz-create-question-editor [question]="activeQuestion()" />
+
+        @if (activeQuestion(); as q) {
+          <quiz-create-question-preview [question]="q" />
+          <quiz-create-question-editor
+            [question]="q"
+            (questionChange)="updateQuestion($event)"
+          />
+        } @else {
+          <div class="flex h-full items-center justify-center bg-muted/5 col-span-2">
+            <p class="text-sm text-muted-foreground">No questions yet. Add one to get started.</p>
+          </div>
+        }
       </div>
 
     </div>
@@ -100,7 +111,31 @@ export class QuizCreateComponent {
   private readonly route = inject(ActivatedRoute);
   readonly quizId = toSignal(this.route.paramMap.pipe(map((p) => p.get('id') ?? 'new')));
 
-  readonly questions = MOCK_QUESTIONS;
+  readonly questions = signal<QuizQuestion[]>(MOCK_QUESTIONS);
   readonly activeIndex = signal(0);
-  readonly activeQuestion = computed(() => this.questions[this.activeIndex()]);
+  readonly activeQuestion = computed(() => this.questions()[this.activeIndex()]);
+
+  addQuestion(type: 'multiple-choice' | 'true-false'): void {
+    const newQuestion: QuizQuestion = {
+      id: Date.now(),
+      title: 'New Question',
+      type,
+      points: 10,
+      timeLimit: 30,
+      options: type === 'multiple-choice' ? ['', '', '', ''] : ['True', 'False'],
+    };
+    this.questions.update((qs) => [...qs, newQuestion]);
+    this.activeIndex.set(this.questions().length - 1);
+  }
+
+  removeQuestion(index: number): void {
+    this.questions.update((qs) => qs.filter((_, i) => i !== index));
+    this.activeIndex.update((i) => Math.min(i, this.questions().length - 1));
+  }
+
+  updateQuestion(updated: QuizQuestion): void {
+    this.questions.update((qs) =>
+      qs.map((q) => (q.id === updated.id ? updated : q)),
+    );
+  }
 }

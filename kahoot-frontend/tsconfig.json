@@ -55,6 +55,9 @@
       ],
       "@ui-lib/icon": [
         "./src/app/ui-lib/icon/src/index.ts"
+      ],
+      "@ui-lib/dialog": [
+        "./src/app/ui-lib/dialog/src/index.ts"
       ]
     },
     "strict": true,
