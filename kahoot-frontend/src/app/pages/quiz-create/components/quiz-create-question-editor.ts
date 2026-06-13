@@ -41,7 +41,7 @@ import { QuizQuestion } from '../quiz-create';
           rows="3"
           placeholder="Enter question text…"
           [value]="question().title"
-          class="resize-none"
+          class="resize-none max-h-32 overflow-y-auto"
         ></textarea>
       </div>
 

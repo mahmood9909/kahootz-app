@@ -149,7 +149,7 @@ import { QuizQuestion } from '../quiz-create';
                     id="new-q-desc"
                     rows="4"
                     placeholder="Add context or notes for this question…"
-                    class="w-full resize-none overflow-y-auto"
+                    class="w-full resize-none max-h-32 overflow-y-auto"
                     (input)="newQuestionDescription.set($any($event.target).value)"
                   ></textarea>
                 </div>
