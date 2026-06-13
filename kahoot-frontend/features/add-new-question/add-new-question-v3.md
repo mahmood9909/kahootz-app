@@ -264,3 +264,9 @@ a clear call-to-action weight without dominating the sidebar visually.
 ## Answers
 1. Modal asks for type only — no question text field in the modal.
 2. Two-way binding for type, points, and time only (title/options stay display-only for now).
+
+
+## Feedback
+1. add question does not have blue accent color as was suppose to happend.
+2. add question dialog should of respected size and should have Question name as input field as well as dropdown and two button one create or cancel the cnacel should be danger color
+3. make dialog as card size and make add to the left and cancel to the right.

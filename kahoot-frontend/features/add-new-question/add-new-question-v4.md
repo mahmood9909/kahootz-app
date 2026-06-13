@@ -70,4 +70,15 @@ export interface QuizQuestion {
 2. Two-way binding for type, points, and time only (title/options stay display-only for now).
 
 ## Feedback
+1. model still neither ui nor ux right so we need to fix it such that 
 
+Question name field (input field )
+expand width such that it occupy the arvaivlbe space
+
+Question Type (input field )
+expand width such that it occupy the arvaivlbe space
+
+Question Description (input field )
+expand width such that it occupy the arvaivlbe space
+
+2. make create to right and cancel to the left and push the two button to the right of the mode
