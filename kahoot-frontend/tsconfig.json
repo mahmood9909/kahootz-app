@@ -20,12 +20,6 @@
       "@ui-lib/button": [
         "./src/app/ui-lib/button/src/index.ts"
       ],
-      "@ui-lib/icon": [
-        "./src/app/ui-lib/icon/src/index.ts"
-      ],
-      "@ui-lib/select": [
-        "./src/app/ui-lib/select/src/index.ts"
-      ],
       "@ui-lib/alert": [
         "./src/app/ui-lib/alert/src/index.ts"
       ],
@@ -34,6 +28,33 @@
       ],
       "@ui-lib/dropdown-menu": [
         "./src/app/ui-lib/dropdown-menu/src/index.ts"
+      ],
+      "@ui-lib/card": [
+        "./src/app/ui-lib/card/src/index.ts"
+      ],
+      "@ui-lib/scroll-area": [
+        "./src/app/ui-lib/scroll-area/src/index.ts"
+      ],
+      "@ui-lib/separator": [
+        "./src/app/ui-lib/separator/src/index.ts"
+      ],
+      "@ui-lib/input": [
+        "./src/app/ui-lib/input/src/index.ts"
+      ],
+      "@ui-lib/label": [
+        "./src/app/ui-lib/label/src/index.ts"
+      ],
+      "@ui-lib/badge": [
+        "./src/app/ui-lib/badge/src/index.ts"
+      ],
+      "@ui-lib/select": [
+        "./src/app/ui-lib/select/src/index.ts"
+      ],
+      "@ui-lib/breadcrumb": [
+        "./src/app/ui-lib/breadcrumb/src/index.ts"
+      ],
+      "@ui-lib/icon": [
+        "./src/app/ui-lib/icon/src/index.ts"
       ]
     },
     "strict": true,
