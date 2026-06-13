@@ -115,14 +115,14 @@ export class QuizCreateComponent {
   readonly activeIndex = signal(0);
   readonly activeQuestion = computed(() => this.questions()[this.activeIndex()]);
 
-  addQuestion(type: 'multiple-choice' | 'true-false'): void {
+  addQuestion(payload: { name: string; type: 'multiple-choice' | 'true-false' }): void {
     const newQuestion: QuizQuestion = {
       id: Date.now(),
-      title: 'New Question',
-      type,
+      title: payload.name || `Question ${this.questions().length + 1}`,
+      type: payload.type,
       points: 10,
       timeLimit: 30,
-      options: type === 'multiple-choice' ? ['', '', '', ''] : ['True', 'False'],
+      options: payload.type === 'multiple-choice' ? ['', '', '', ''] : ['True', 'False'],
     };
     this.questions.update((qs) => [...qs, newQuestion]);
     this.activeIndex.set(this.questions().length - 1);

@@ -6,13 +6,15 @@ import { HlmAlertDialogImports } from '@ui-lib/alert-dialog';
 import { HlmBadgeImports } from '@ui-lib/badge';
 import { HlmButtonImports } from '@ui-lib/button';
 import { HlmDialogImports } from '@ui-lib/dialog';
+import { HlmInputImports } from '@ui-lib/input';
+import { HlmLabelImports } from '@ui-lib/label';
 import { HlmSelectImports } from '@ui-lib/select';
 import { QuizQuestion } from '../quiz-create';
 
 @Component({
   selector: 'quiz-create-questions-sidebar',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgClass, NgIcon, HlmButtonImports, HlmBadgeImports, HlmDialogImports, HlmAlertDialogImports, HlmSelectImports],
+  imports: [NgClass, NgIcon, HlmButtonImports, HlmBadgeImports, HlmDialogImports, HlmAlertDialogImports, HlmSelectImports, HlmInputImports, HlmLabelImports],
   providers: [provideIcons({ lucidePlus, lucideTrash2 })],
   template: `
     <div class="flex h-full flex-col overflow-hidden bg-muted/20">
@@ -90,38 +92,54 @@ import { QuizQuestion } from '../quiz-create';
         <hlm-dialog>
           <button
             hlmDialogTrigger
-            hlmBtn variant="outline" size="sm"
-            class="w-full justify-start gap-1.5 border-primary text-primary hover:bg-primary/10"
+            hlmBtn variant="ghost" size="sm"
+            class="w-full justify-start gap-1.5 border border-primary text-primary hover:bg-primary/10 hover:text-primary"
+            (click)="initDialog()"
           >
             <ng-icon name="lucidePlus" class="size-4" />
             Add Question
           </button>
           <ng-template hlmDialogPortal>
-            <hlm-dialog-content>
+            <hlm-dialog-content class="sm:max-w-sm">
               <hlm-dialog-header>
                 <h3 hlmDialogTitle>Add Question</h3>
-                <p hlmDialogDescription>Choose the question type to add.</p>
               </hlm-dialog-header>
 
-              <div class="flex flex-col gap-1.5">
-                <label class="text-sm font-medium">Question Type</label>
-                <hlm-select [value]="newQuestionType()" [itemToString]="questionTypeLabel" (valueChange)="newQuestionType.set($any($event))">
-                  <hlm-select-trigger class="w-full">
-                    <hlm-select-value />
-                  </hlm-select-trigger>
-                  <ng-template hlmSelectPortal>
-                    <hlm-select-content>
-                      <hlm-select-item value="multiple-choice">Multiple Choice</hlm-select-item>
-                      <hlm-select-item value="true-false">True / False</hlm-select-item>
-                    </hlm-select-content>
-                  </ng-template>
-                </hlm-select>
+              <div class="flex flex-col gap-4">
+                <!-- Question name -->
+                <div class="flex flex-col gap-1.5">
+                  <label hlmLabel for="new-q-name">Question Name</label>
+                  <input
+                    hlmInput
+                    id="new-q-name"
+                    type="text"
+                    [value]="newQuestionName()"
+                    (input)="newQuestionName.set($any($event.target).value)"
+                    placeholder="Question name…"
+                  />
+                </div>
+
+                <!-- Question type -->
+                <div class="flex flex-col gap-1.5">
+                  <label hlmLabel>Question Type</label>
+                  <hlm-select [value]="newQuestionType()" [itemToString]="questionTypeLabel" (valueChange)="newQuestionType.set($any($event))">
+                    <hlm-select-trigger class="w-full">
+                      <hlm-select-value />
+                    </hlm-select-trigger>
+                    <ng-template hlmSelectPortal>
+                      <hlm-select-content>
+                        <hlm-select-item value="multiple-choice">Multiple Choice</hlm-select-item>
+                        <hlm-select-item value="true-false">True / False</hlm-select-item>
+                      </hlm-select-content>
+                    </ng-template>
+                  </hlm-select>
+                </div>
               </div>
 
-              <hlm-dialog-footer>
-                <button hlmBtn variant="outline" brnDialogClose>Cancel</button>
-                <button hlmBtn hlmDialogClose (click)="confirmAdd()">Add</button>
-              </hlm-dialog-footer>
+              <div class="flex gap-2 pt-2">
+                <button hlmBtn hlmDialogClose (click)="confirmAdd()">Create</button>
+                <button hlmBtn variant="destructive" brnDialogClose>Cancel</button>
+              </div>
             </hlm-dialog-content>
           </ng-template>
         </hlm-dialog>
@@ -134,16 +152,21 @@ export class QuizCreateQuestionsSidebarComponent {
   readonly questions = input.required<QuizQuestion[]>();
   readonly activeIndex = input.required<number>();
   readonly selectQuestion = output<number>();
-  readonly addQuestion = output<'multiple-choice' | 'true-false'>();
+  readonly addQuestion = output<{ name: string; type: 'multiple-choice' | 'true-false' }>();
   readonly deleteQuestion = output<number>();
 
+  readonly newQuestionName = signal('');
   readonly newQuestionType = signal<'multiple-choice' | 'true-false'>('multiple-choice');
 
   readonly questionTypeLabel = (value: string): string =>
     ({ 'multiple-choice': 'Multiple Choice', 'true-false': 'True / False' })[value] ?? value;
 
-  confirmAdd(): void {
-    this.addQuestion.emit(this.newQuestionType());
+  initDialog(): void {
+    this.newQuestionName.set(`Question ${this.questions().length + 1}`);
     this.newQuestionType.set('multiple-choice');
+  }
+
+  confirmAdd(): void {
+    this.addQuestion.emit({ name: this.newQuestionName(), type: this.newQuestionType() });
   }
 }
