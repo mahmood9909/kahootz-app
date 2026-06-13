@@ -58,6 +58,9 @@
       ],
       "@ui-lib/dialog": [
         "./src/app/ui-lib/dialog/src/index.ts"
+      ],
+      "@ui-lib/textarea": [
+        "./src/app/ui-lib/textarea/src/index.ts"
       ]
     },
     "strict": true,

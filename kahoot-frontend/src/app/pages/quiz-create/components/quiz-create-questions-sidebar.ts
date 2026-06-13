@@ -9,13 +9,14 @@ import { HlmCardImports } from '@ui-lib/card';
 import { HlmDialogImports } from '@ui-lib/dialog';
 import { HlmInputImports } from '@ui-lib/input';
 import { HlmLabelImports } from '@ui-lib/label';
+import { HlmTextareaImports } from '@ui-lib/textarea';
 import { HlmSelectImports } from '@ui-lib/select';
 import { QuizQuestion } from '../quiz-create';
 
 @Component({
   selector: 'quiz-create-questions-sidebar',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgClass, NgIcon, HlmButtonImports, HlmBadgeImports, HlmCardImports, HlmDialogImports, HlmAlertDialogImports, HlmSelectImports, HlmInputImports, HlmLabelImports],
+  imports: [NgClass, NgIcon, HlmButtonImports, HlmBadgeImports, HlmCardImports, HlmDialogImports, HlmAlertDialogImports, HlmSelectImports, HlmInputImports, HlmLabelImports, HlmTextareaImports],
   providers: [provideIcons({ lucidePlus, lucideTrash2 })],
   template: `
     <div class="flex h-full flex-col overflow-hidden bg-muted/20">
@@ -144,7 +145,7 @@ import { QuizQuestion } from '../quiz-create';
                     <span class="font-normal text-muted-foreground">(optional)</span>
                   </label>
                   <textarea
-                    hlmInput
+                    hlmTextarea
                     id="new-q-desc"
                     rows="4"
                     placeholder="Add context or notes for this question…"

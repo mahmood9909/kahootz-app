@@ -3,12 +3,13 @@ import { HlmInputImports } from '@ui-lib/input';
 import { HlmLabelImports } from '@ui-lib/label';
 import { HlmSelectImports } from '@ui-lib/select';
 import { HlmSeparatorImports } from '@ui-lib/separator';
+import { HlmTextareaImports } from '@ui-lib/textarea';
 import { QuizQuestion } from '../quiz-create';
 
 @Component({
   selector: 'quiz-create-question-editor',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [HlmInputImports, HlmLabelImports, HlmSelectImports, HlmSeparatorImports],
+  imports: [HlmInputImports, HlmLabelImports, HlmSelectImports, HlmSeparatorImports, HlmTextareaImports],
   template: `
     <div class="flex h-full flex-col gap-5 overflow-y-auto bg-background p-4">
 
@@ -35,7 +36,7 @@ import { QuizQuestion } from '../quiz-create';
       <div class="flex flex-col gap-1.5">
         <label hlmLabel for="q-text">Question</label>
         <textarea
-          hlmInput
+          hlmTextarea
           id="q-text"
           rows="3"
           placeholder="Enter question text…"
