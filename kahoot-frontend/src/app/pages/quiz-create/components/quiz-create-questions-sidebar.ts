@@ -100,7 +100,7 @@ import { QuizQuestion } from '../quiz-create';
             Add Question
           </button>
           <ng-template hlmDialogPortal>
-            <hlm-dialog-content class="sm:max-w-2xl">
+            <hlm-dialog-content class="sm:!max-w-lg">
               <hlm-dialog-header>
                 <h3 hlmDialogTitle>Add Question</h3>
               </hlm-dialog-header>
