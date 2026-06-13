@@ -105,55 +105,56 @@ import { QuizQuestion } from '../quiz-create';
                 <h3 hlmDialogTitle>Add Question</h3>
               </hlm-dialog-header>
 
-              <div class="grid grid-cols-2 gap-6">
+              <div class="flex flex-col gap-4">
 
-                <!-- Left — form -->
-                <div class="flex flex-col gap-4">
-                  <div class="flex flex-col gap-1.5">
-                    <label hlmLabel for="new-q-name">Question Name</label>
-                    <input
-                      hlmInput
-                      id="new-q-name"
-                      type="text"
-                      [value]="newQuestionName()"
-                      (input)="newQuestionName.set($any($event.target).value)"
-                      placeholder="Question name…"
-                    />
-                  </div>
-                  <div class="flex flex-col gap-1.5">
-                    <label hlmLabel>Question Type</label>
-                    <hlm-select [value]="newQuestionType()" [itemToString]="questionTypeLabel" (valueChange)="newQuestionType.set($any($event))">
-                      <hlm-select-trigger class="w-full">
-                        <hlm-select-value />
-                      </hlm-select-trigger>
-                      <ng-template hlmSelectPortal>
-                        <hlm-select-content>
-                          <hlm-select-item value="multiple-choice">Multiple Choice</hlm-select-item>
-                          <hlm-select-item value="true-false">True / False</hlm-select-item>
-                        </hlm-select-content>
-                      </ng-template>
-                    </hlm-select>
-                  </div>
+                <div class="flex flex-col gap-1.5">
+                  <label hlmLabel for="new-q-name">Question Name</label>
+                  <input
+                    hlmInput
+                    id="new-q-name"
+                    type="text"
+                    class="w-full"
+                    [value]="newQuestionName()"
+                    (input)="newQuestionName.set($any($event.target).value)"
+                    placeholder="Question name…"
+                  />
                 </div>
 
-                <!-- Right — description -->
                 <div class="flex flex-col gap-1.5">
-                  <label hlmLabel for="new-q-desc">Description <span class="text-muted-foreground font-normal">(optional)</span></label>
+                  <label hlmLabel>Question Type</label>
+                  <hlm-select [value]="newQuestionType()" [itemToString]="questionTypeLabel" (valueChange)="newQuestionType.set($any($event))">
+                    <hlm-select-trigger class="w-full">
+                      <hlm-select-value />
+                    </hlm-select-trigger>
+                    <ng-template hlmSelectPortal>
+                      <hlm-select-content>
+                        <hlm-select-item value="multiple-choice">Multiple Choice</hlm-select-item>
+                        <hlm-select-item value="true-false">True / False</hlm-select-item>
+                      </hlm-select-content>
+                    </ng-template>
+                  </hlm-select>
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                  <label hlmLabel for="new-q-desc">
+                    Description
+                    <span class="font-normal text-muted-foreground">(optional)</span>
+                  </label>
                   <textarea
                     hlmInput
                     id="new-q-desc"
-                    rows="6"
+                    rows="4"
                     placeholder="Add context or notes for this question…"
-                    class="resize-none overflow-y-auto"
+                    class="w-full resize-none overflow-y-auto"
                     (input)="newQuestionDescription.set($any($event.target).value)"
                   ></textarea>
                 </div>
 
               </div>
 
-              <div class="flex gap-2 pt-2">
+              <div class="flex justify-end gap-2 pt-2">
+                <button hlmBtn variant="outline" brnDialogClose>Cancel</button>
                 <button hlmBtn hlmDialogClose (click)="confirmAdd()">Create</button>
-                <button hlmBtn variant="destructive" brnDialogClose>Cancel</button>
               </div>
             </hlm-dialog-content>
           </ng-template>
