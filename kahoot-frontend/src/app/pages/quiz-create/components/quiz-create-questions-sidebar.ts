@@ -100,40 +100,73 @@ import { QuizQuestion } from '../quiz-create';
             Add Question
           </button>
           <ng-template hlmDialogPortal>
-            <hlm-dialog-content class="sm:max-w-sm">
+            <hlm-dialog-content class="sm:max-w-2xl">
               <hlm-dialog-header>
                 <h3 hlmDialogTitle>Add Question</h3>
               </hlm-dialog-header>
 
-              <div class="flex flex-col gap-4">
-                <!-- Question name -->
-                <div class="flex flex-col gap-1.5">
-                  <label hlmLabel for="new-q-name">Question Name</label>
-                  <input
-                    hlmInput
-                    id="new-q-name"
-                    type="text"
-                    [value]="newQuestionName()"
-                    (input)="newQuestionName.set($any($event.target).value)"
-                    placeholder="Question name…"
-                  />
+              <div class="grid grid-cols-2 gap-6">
+
+                <!-- Left — form -->
+                <div class="flex flex-col gap-4">
+                  <div class="flex flex-col gap-1.5">
+                    <label hlmLabel for="new-q-name">Question Name</label>
+                    <input
+                      hlmInput
+                      id="new-q-name"
+                      type="text"
+                      [value]="newQuestionName()"
+                      (input)="newQuestionName.set($any($event.target).value)"
+                      placeholder="Question name…"
+                    />
+                  </div>
+                  <div class="flex flex-col gap-1.5">
+                    <label hlmLabel>Question Type</label>
+                    <hlm-select [value]="newQuestionType()" [itemToString]="questionTypeLabel" (valueChange)="newQuestionType.set($any($event))">
+                      <hlm-select-trigger class="w-full">
+                        <hlm-select-value />
+                      </hlm-select-trigger>
+                      <ng-template hlmSelectPortal>
+                        <hlm-select-content>
+                          <hlm-select-item value="multiple-choice">Multiple Choice</hlm-select-item>
+                          <hlm-select-item value="true-false">True / False</hlm-select-item>
+                        </hlm-select-content>
+                      </ng-template>
+                    </hlm-select>
+                  </div>
                 </div>
 
-                <!-- Question type -->
-                <div class="flex flex-col gap-1.5">
-                  <label hlmLabel>Question Type</label>
-                  <hlm-select [value]="newQuestionType()" [itemToString]="questionTypeLabel" (valueChange)="newQuestionType.set($any($event))">
-                    <hlm-select-trigger class="w-full">
-                      <hlm-select-value />
-                    </hlm-select-trigger>
-                    <ng-template hlmSelectPortal>
-                      <hlm-select-content>
-                        <hlm-select-item value="multiple-choice">Multiple Choice</hlm-select-item>
-                        <hlm-select-item value="true-false">True / False</hlm-select-item>
-                      </hlm-select-content>
-                    </ng-template>
-                  </hlm-select>
+                <!-- Right — live preview card -->
+                <div class="flex flex-col gap-3 rounded-xl border border-border bg-card p-4">
+                  <p class="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Preview</p>
+
+                  <!-- Question title -->
+                  <div class="min-h-10 rounded-lg bg-muted/40 px-3 py-2 text-sm font-medium">
+                    {{ newQuestionName() || 'Your question text' }}
+                  </div>
+
+                  <!-- Options -->
+                  <div class="grid gap-2" [class]="newQuestionType() === 'true-false' ? 'grid-cols-2' : 'grid-cols-2'">
+                    @if (newQuestionType() === 'multiple-choice') {
+                      @for (opt of mcOptions; track opt.label) {
+                        <div class="flex items-center gap-2 rounded-lg border border-border bg-background px-3 py-2 text-sm">
+                          <span class="flex size-5 shrink-0 items-center justify-center rounded-full bg-muted text-[10px] font-bold">
+                            {{ opt.label }}
+                          </span>
+                          <span class="text-xs text-muted-foreground">Option {{ opt.label }}</span>
+                        </div>
+                      }
+                    } @else {
+                      <div class="flex items-center justify-center rounded-lg border border-border bg-background px-3 py-2.5 text-sm font-medium text-green-600">
+                        True
+                      </div>
+                      <div class="flex items-center justify-center rounded-lg border border-border bg-background px-3 py-2.5 text-sm font-medium text-destructive">
+                        False
+                      </div>
+                    }
+                  </div>
                 </div>
+
               </div>
 
               <div class="flex gap-2 pt-2">
@@ -157,6 +190,7 @@ export class QuizCreateQuestionsSidebarComponent {
 
   readonly newQuestionName = signal('');
   readonly newQuestionType = signal<'multiple-choice' | 'true-false'>('multiple-choice');
+  readonly mcOptions = [{ label: 'A' }, { label: 'B' }, { label: 'C' }, { label: 'D' }];
 
   readonly questionTypeLabel = (value: string): string =>
     ({ 'multiple-choice': 'Multiple Choice', 'true-false': 'True / False' })[value] ?? value;
