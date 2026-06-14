@@ -61,6 +61,12 @@
       ],
       "@ui-lib/textarea": [
         "./src/app/ui-lib/textarea/src/index.ts"
+      ],
+      "@ui-lib/tooltip": [
+        "./src/app/ui-lib/tooltip/src/index.ts"
+      ],
+      "@app-types": [
+        "./src/app/types/types.ts"
       ]
     },
     "strict": true,

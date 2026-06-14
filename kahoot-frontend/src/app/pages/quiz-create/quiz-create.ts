@@ -4,45 +4,40 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
 import { HlmButtonImports } from '@ui-lib/button';
 import { HlmBreadcrumbImports } from '@ui-lib/breadcrumb';
+import { QuestionType, QuizQuestion } from '@app-types';
 import { QuizCreateQuestionEditorComponent } from './components/quiz-create-question-editor';
-import { QuizCreateQuestionPreviewComponent } from './components/quiz-create-question-preview';
+import { QuizCreateEditorCanvasComponent } from './components/quiz-create-editor-canvas';
 import { QuizCreateQuestionsSidebarComponent } from './components/quiz-create-questions-sidebar';
 
-export interface QuizQuestion {
-  id: number;
-  title: string;
-  description?: string;
-  type: 'multiple-choice' | 'true-false';
-  points: number;
-  timeLimit: number;
-  options: string[];
-  imageUrl?: string;
-}
+export type { QuizQuestion };
 
 const MOCK_QUESTIONS: QuizQuestion[] = [
   {
     id: 1,
-    title: 'What is the capital of France?',
+    name: 'What is the capital of France?',
     type: 'multiple-choice',
     points: 10,
+    calculationAlgorithm: 'standard',
     timeLimit: 30,
-    options: ['Paris', 'London', 'Berlin', 'Madrid'],
+    quizConfig: [],
   },
   {
     id: 2,
-    title: 'The Earth is flat.',
+    name: 'The Earth is flat.',
     type: 'true-false',
     points: 5,
-    timeLimit: 15,
-    options: ['True', 'False'],
+    calculationAlgorithm: 'standard',
+    timeLimit: 10,
+    quizConfig: [],
   },
   {
     id: 3,
-    title: 'Which planet is closest to the Sun?',
+    name: 'Which planet is closest to the Sun?',
     type: 'multiple-choice',
     points: 10,
+    calculationAlgorithm: 'standard',
     timeLimit: 30,
-    options: ['Mercury', 'Venus', 'Earth', 'Mars'],
+    quizConfig: [],
   },
 ];
 
@@ -54,7 +49,7 @@ const MOCK_QUESTIONS: QuizQuestion[] = [
     HlmButtonImports,
     HlmBreadcrumbImports,
     QuizCreateQuestionsSidebarComponent,
-    QuizCreateQuestionPreviewComponent,
+    QuizCreateEditorCanvasComponent,
     QuizCreateQuestionEditorComponent,
   ],
   template: `
@@ -93,7 +88,7 @@ const MOCK_QUESTIONS: QuizQuestion[] = [
         />
 
         @if (activeQuestion(); as q) {
-          <quiz-create-question-preview [question]="q" />
+          <quiz-create-editor-canvas [question]="q" />
           <quiz-create-question-editor
             [question]="q"
             (questionChange)="updateQuestion($event)"
@@ -116,15 +111,16 @@ export class QuizCreateComponent {
   readonly activeIndex = signal(0);
   readonly activeQuestion = computed(() => this.questions()[this.activeIndex()]);
 
-  addQuestion(payload: { name: string; description: string; type: 'multiple-choice' | 'true-false' }): void {
+  addQuestion(payload: { name: string; description: string; type: QuestionType }): void {
     const newQuestion: QuizQuestion = {
       id: Date.now(),
-      title: payload.name || `Question ${this.questions().length + 1}`,
+      name: payload.name || `Question ${this.questions().length + 1}`,
       description: payload.description || undefined,
       type: payload.type,
       points: 10,
-      timeLimit: 30,
-      options: payload.type === 'multiple-choice' ? ['', '', '', ''] : ['True', 'False'],
+      calculationAlgorithm: 'standard',
+      timeLimit: 10,
+      quizConfig: [],
     };
     this.questions.update((qs) => [...qs, newQuestion]);
     this.activeIndex.set(this.questions().length - 1);

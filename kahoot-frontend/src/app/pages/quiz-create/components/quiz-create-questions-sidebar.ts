@@ -11,7 +11,7 @@ import { HlmInputImports } from '@ui-lib/input';
 import { HlmLabelImports } from '@ui-lib/label';
 import { HlmTextareaImports } from '@ui-lib/textarea';
 import { HlmSelectImports } from '@ui-lib/select';
-import { QuizQuestion } from '../quiz-create';
+import { QuestionType, QuizQuestion } from '@app-types';
 
 @Component({
   selector: 'quiz-create-questions-sidebar',
@@ -44,7 +44,7 @@ import { QuizQuestion } from '../quiz-create';
                   [variant]="activeIndex() === i ? 'default' : 'secondary'"
                   class="size-5 shrink-0 rounded-full p-0 text-[10px]"
                 >{{ i + 1 }}</span>
-                <span class="truncate text-sm font-medium">{{ question.title }}</span>
+                <span class="truncate text-sm font-medium">{{ question.name }}</span>
               </div>
               <div class="mt-1 pl-7 flex items-center gap-1.5 text-xs text-muted-foreground">
                 <span>{{ question.type === 'multiple-choice' ? 'Multiple choice' : 'True / False' }}</span>
@@ -71,7 +71,7 @@ import { QuizQuestion } from '../quiz-create';
                     <div hlmAlertDialogHeader>
                       <h3 hlmAlertDialogTitle>Delete question?</h3>
                       <p hlmAlertDialogDescription>
-                        Are you sure you want to delete <strong>"{{ question.title }}"</strong>?
+                        Are you sure you want to delete <strong>"{{ question.name }}"</strong>?
                         This action cannot be undone.
                       </p>
                     </div>
@@ -173,12 +173,12 @@ export class QuizCreateQuestionsSidebarComponent {
   readonly questions = input.required<QuizQuestion[]>();
   readonly activeIndex = input.required<number>();
   readonly selectQuestion = output<number>();
-  readonly addQuestion = output<{ name: string; description: string; type: 'multiple-choice' | 'true-false' }>();
+  readonly addQuestion = output<{ name: string; description: string; type: QuestionType }>();
   readonly deleteQuestion = output<number>();
 
   readonly newQuestionName = signal('');
   readonly newQuestionDescription = signal('');
-  readonly newQuestionType = signal<'multiple-choice' | 'true-false'>('multiple-choice');
+  readonly newQuestionType = signal<QuestionType>('multiple-choice');
 
   readonly questionTypeLabel = (value: string): string =>
     ({ 'multiple-choice': 'Multiple Choice', 'true-false': 'True / False' })[value] ?? value;
