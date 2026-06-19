@@ -2,12 +2,24 @@ export type QuestionType = 'multiple-choice' | 'true-false';
 
 export type CalculationAlgorithm = 'standard' | 'timer-based';
 
-export interface QuizConfigItem {
-  componentRef: string;
-  props: Record<string, any>;
+
+export type QuestionOption = {
+  id: string;
+  title: string;
+  config: {
+    cssClass: string;
+  }
+  isCorrect?: boolean;
+};
+
+
+export type QuestionItemConfig = {
+  id: string;
+  title: string;
+  options: QuestionOption[];
 }
 
-export interface QuizQuestion {
+export type QuizQuestion = {
   id: number;
   name: string;
   description?: string;
@@ -16,12 +28,15 @@ export interface QuizQuestion {
   timeLimit: number;
   imageUrl?: string;
   type: QuestionType;
-  quizConfig: QuizConfigItem[];
+  quizConfig: QuestionItemConfig[];
+  answers?: string[]
 }
 
-export interface Quiz {
+export type Quiz = {
   id: number;
   title: string;
   description?: string;
   questions: QuizQuestion[];
 }
+
+

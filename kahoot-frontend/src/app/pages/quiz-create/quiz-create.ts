@@ -19,7 +19,16 @@ const MOCK_QUESTIONS: QuizQuestion[] = [
     points: 10,
     calculationAlgorithm: 'standard',
     timeLimit: 30,
-    quizConfig: [],
+    quizConfig: [
+      {
+        id: '1',
+        title: 'What is the capital of France?',
+        options: [
+          { id: '1', title: 'Paris', config: { cssClass: 'option-paris' }, isCorrect: true },
+          { id: '2', title: 'London', config: { cssClass: 'option-london' } },
+        ]
+      }
+    ],
   },
   {
     id: 2,
@@ -112,18 +121,18 @@ export class QuizCreateComponent {
   readonly activeQuestion = computed(() => this.questions()[this.activeIndex()]);
 
   addQuestion(payload: { name: string; description: string; type: QuestionType }): void {
-    const newQuestion: QuizQuestion = {
-      id: Date.now(),
-      name: payload.name || `Question ${this.questions().length + 1}`,
-      description: payload.description || undefined,
-      type: payload.type,
-      points: 10,
-      calculationAlgorithm: 'standard',
-      timeLimit: 10,
-      quizConfig: [],
-    };
-    this.questions.update((qs) => [...qs, newQuestion]);
-    this.activeIndex.set(this.questions().length - 1);
+    // const newQuestion: QuizQuestion = {
+    //   id: Date.now(),
+    //   name: payload.name || `Question ${this.questions().length + 1}`,
+    //   description: payload.description || undefined,
+    //   type: payload.type,
+    //   points: 10,
+    //   calculationAlgorithm: 'standard',
+    //   timeLimit: 10,
+    //   quizConfig: [],
+    // };
+    // this.questions.update((qs) => [...qs, newQuestion]);
+    // this.activeIndex.set(this.questions().length - 1);
   }
 
   removeQuestion(index: number): void {

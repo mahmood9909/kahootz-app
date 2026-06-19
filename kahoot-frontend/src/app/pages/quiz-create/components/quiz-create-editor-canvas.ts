@@ -1,15 +1,21 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, inject, input, viewChild, ViewContainerRef } from '@angular/core';
 import { QuizQuestion } from '@app-types';
+import { QUESTION_COMPONENT_REF } from '@core/config/component.config';
 
 @Component({
   selector: 'quiz-create-editor-canvas',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="flex h-full items-center justify-center bg-muted/10">
-      <p class="text-sm text-muted-foreground">Canvas coming soon</p>
-    </div>
+    <ng-container #placeholder />
   `,
 })
-export class QuizCreateEditorCanvasComponent {
+export class QuizCreateEditorCanvasComponent implements AfterViewInit {
   readonly question = input.required<QuizQuestion>();
+  readonly containerRef = viewChild.required('placeholder', { read: ViewContainerRef });
+  readonly questionComponentConfig = inject(QUESTION_COMPONENT_REF);
+
+  async ngAfterViewInit() {
+    const ref = this.questionComponentConfig[this.question().type];
+    const refg =   this.containerRef().createComponent(await ref.component());
+  }
 }
