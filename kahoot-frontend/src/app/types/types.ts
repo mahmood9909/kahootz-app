@@ -20,7 +20,7 @@ export type QuestionItemConfig = {
 }
 
 export type QuizQuestion = {
-  id: number;
+  id: string;
   name: string;
   description?: string;
   points: number;
@@ -33,7 +33,7 @@ export type QuizQuestion = {
 }
 
 export type Quiz = {
-  id: number;
+  id: string;
   title: string;
   description?: string;
   questions: QuizQuestion[];

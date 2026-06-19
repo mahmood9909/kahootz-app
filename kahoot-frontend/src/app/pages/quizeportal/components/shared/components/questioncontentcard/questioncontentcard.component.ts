@@ -6,7 +6,7 @@ import { QuizQuestion } from '@app-types';
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './questioncontentcard.component.html',
 })
-export class QuestioncontentcardComponent {
+export class QuestionContentcardComponent {
   readonly question = input.required<QuizQuestion>();
   readonly questionChange = output<QuizQuestion>();
 

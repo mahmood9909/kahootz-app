@@ -67,6 +67,15 @@
       ],
       "@app-types": [
         "./src/app/types/types.ts"
+      ],
+      "@ui-lib/sidebar": [
+        "./src/app/ui-lib/sidebar/src/index.ts"
+      ],
+      "@ui-lib/sheet": [
+        "./src/app/ui-lib/sheet/src/index.ts"
+      ],
+      "@ui-lib/skeleton": [
+        "./src/app/ui-lib/skeleton/src/index.ts"
       ]
     },
     "strict": true,

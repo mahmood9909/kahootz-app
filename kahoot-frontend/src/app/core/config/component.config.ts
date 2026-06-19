@@ -2,6 +2,7 @@ import { InjectionToken, InputSignal } from '@angular/core';
 import { QuestionType } from '@app-types';
 
 export type QuestionComponentEntry = {
+  componentName : string;
   component: () => Promise<any>;
   input: { [key: string]: any };
   type: QuestionType;
@@ -25,6 +26,7 @@ const defaultRegistry: QuestionComponentRegistry = {
       ),
     input: { question: 'question' },
     type: 'true-false',
+    componentName: 'True and False',
   },
   'multiple-choice': {
     component: () =>
@@ -33,6 +35,7 @@ const defaultRegistry: QuestionComponentRegistry = {
       ),
     input: { question: 'question' },
     type: 'multiple-choice',
+    componentName: 'Multiple Choice',
   },
 };
 

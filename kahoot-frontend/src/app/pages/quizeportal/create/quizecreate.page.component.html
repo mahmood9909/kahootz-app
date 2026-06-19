@@ -24,20 +24,11 @@
 
   <!-- 3-column workspace -->
   <div class="grid min-h-0 flex-1 grid-cols-[260px_1fr_320px] divide-x divide-border/50">
-    <quizeportal-questionsidebar
-      [questions]="questions()"
-      [activeIndex]="activeIndex()"
-      (selectQuestion)="activeIndex.set($event)"
-      (addQuestion)="addQuestion($event)"
-      (deleteQuestion)="removeQuestion($event)"
-    />
+    <quizeportal-questionsidebar />
 
-    @if (activeQuestion(); as q) {
-      <quizeportal-editorcanvas [question]="q" />
-      <quizeportal-questioneditor
-        [question]="q"
-        (questionChange)="updateQuestion($event)"
-      />
+    @if (stateService.activeQuestion()) {
+      <quizeportal-editorcanvas />
+      <quizeportal-questioneditor />
     } @else {
       <div class="flex h-full items-center justify-center bg-muted/5 col-span-2">
         <p class="text-sm text-muted-foreground">No questions yet. Add one to get started.</p>
