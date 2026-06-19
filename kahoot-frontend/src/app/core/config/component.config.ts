@@ -1,12 +1,14 @@
-import { InjectionToken } from '@angular/core';
+import { InjectionToken, InputSignal } from '@angular/core';
 import { QuestionType } from '@app-types';
 
 export type QuestionComponentEntry = {
   component: () => Promise<any>;
-  questionConfigProps: string;
+  input: { [key: string]: any };
   type: QuestionType;
 };
-
+type ComponentInputs<T> = {
+  [P in keyof T]: T[P] extends InputSignal<infer A> ? A : never;
+};
 export type QuestionComponentRegistry = {
   [key in QuestionType]: QuestionComponentEntry;
 };
@@ -18,14 +20,16 @@ export const QUESTION_COMPONENT_REF = new InjectionToken<QuestionComponentRegist
 const defaultRegistry: QuestionComponentRegistry = {
   'true-false': {
     component: () =>
-      import('../../shared/components/test/test.component').then((m) => m.TestComponent),
-    questionConfigProps: 'quizConfig',
+      import('../../quiz-portal/components/question-type/true-false/true-false').then(
+        (m) => m.TrueFalseComponent
+      ),
+    input: { question: 'question' },
     type: 'true-false',
   },
   'multiple-choice': {
     component: () =>
       import('../../shared/components/test/test.component').then((m) => m.TestComponent),
-    questionConfigProps: 'quizConfig',
+    input: { quizConfig: 'quizConfig' },
     type: 'multiple-choice',
   },
 };

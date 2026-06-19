@@ -6,7 +6,7 @@ import { QuizQuestion } from '@app-types';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="flex h-full items-center justify-center">
-      <p class="text-sm text-muted-foreground"> coming soon</p>
+      <p class="text-sm text-muted-foreground"> coming soon rfge</p>
     </div>
   `,
 })

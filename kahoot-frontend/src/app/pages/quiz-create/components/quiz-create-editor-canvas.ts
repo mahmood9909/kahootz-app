@@ -16,6 +16,7 @@ export class QuizCreateEditorCanvasComponent implements AfterViewInit {
 
   async ngAfterViewInit() {
     const ref = this.questionComponentConfig[this.question().type];
-    const refg =   this.containerRef().createComponent(await ref.component());
+    const componentRef = this.containerRef().createComponent(await ref.component());
+    componentRef.setInput('question', this.question());
   }
 }
