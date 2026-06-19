@@ -20,7 +20,7 @@ export const QUESTION_COMPONENT_REF = new InjectionToken<QuestionComponentRegist
 const defaultRegistry: QuestionComponentRegistry = {
   'true-false': {
     component: () =>
-      import('../../quiz-portal/components/question-type/true-false/true-false').then(
+      import('../../pages/quizeportal/components/shared/components/questiontype/truefalse/truefalse.component').then(
         (m) => m.TrueFalseComponent
       ),
     input: { question: 'question' },
@@ -28,8 +28,10 @@ const defaultRegistry: QuestionComponentRegistry = {
   },
   'multiple-choice': {
     component: () =>
-      import('../../shared/components/test/test.component').then((m) => m.TestComponent),
-    input: { quizConfig: 'quizConfig' },
+      import('../../pages/quizeportal/components/shared/components/questiontype/multiplechoice/multiplechoice.component').then(
+        (m) => m.MultipleChoiceComponent
+      ),
+    input: { question: 'question' },
     type: 'multiple-choice',
   },
 };
