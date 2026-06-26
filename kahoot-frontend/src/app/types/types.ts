@@ -1,42 +1,33 @@
-export type QuestionType = 'multiple-choice' | 'true-false';
+export type QType = 'multiple-choice' | 'true-false';
 
 export type CalculationAlgorithm = 'standard' | 'timer-based';
 
-
-export type QuestionOption = {
+export type QOptionsStruct = {
   id: string;
   title: string;
   config: {
     cssClass: string;
-  }
+  };
   isCorrect?: boolean;
 };
 
-
-export type QuestionItemConfig = {
-  id: string;
-  title: string;
-  options: QuestionOption[];
-}
-
-export type QuizQuestion = {
+export type QStruct = {
   id: string;
   name: string;
+  title?: string;
   description?: string;
   points: number;
   calculationAlgorithm: CalculationAlgorithm;
   timeLimit: number;
   imageUrl?: string;
-  type: QuestionType;
-  quizConfig: QuestionItemConfig[];
-  answers?: string[]
-}
+  type: QType;
+  options: QOptionsStruct[];
+  answers?: string[];
+};
 
-export type Quiz = {
+export type PlanStruct = {
   id: string;
   title: string;
   description?: string;
-  questions: QuizQuestion[];
-}
-
-
+  questions: QStruct[];
+};

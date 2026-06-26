@@ -1,17 +1,17 @@
 import { InjectionToken, InputSignal } from '@angular/core';
-import { QuestionType } from '@app-types';
+import { QType } from '@app-types';
 
 export type QuestionComponentEntry = {
   componentName : string;
   component: () => Promise<any>;
   input: { [key: string]: any };
-  type: QuestionType;
+  type: QType;
 };
 type ComponentInputs<T> = {
   [P in keyof T]: T[P] extends InputSignal<infer A> ? A : never;
 };
 export type QuestionComponentRegistry = {
-  [key in QuestionType]: QuestionComponentEntry;
+  [key in QType]: QuestionComponentEntry;
 };
 
 export const QUESTION_COMPONENT_REF = new InjectionToken<QuestionComponentRegistry>(
@@ -21,7 +21,7 @@ export const QUESTION_COMPONENT_REF = new InjectionToken<QuestionComponentRegist
 const defaultRegistry: QuestionComponentRegistry = {
   'true-false': {
     component: () =>
-      import('../../pages/quizeportal/components/shared/components/questiontype/truefalse/truefalse.component').then(
+      import('../../pages/planportal/components/shared/components/questiontype/truefalse/truefalse.component').then(
         (m) => m.TrueFalseComponent
       ),
     input: { question: 'question' },
@@ -30,7 +30,7 @@ const defaultRegistry: QuestionComponentRegistry = {
   },
   'multiple-choice': {
     component: () =>
-      import('../../pages/quizeportal/components/shared/components/questiontype/multiplechoice/multiplechoice.component').then(
+      import('../../pages/planportal/components/shared/components/questiontype/multiplechoice/multiplechoice.component').then(
         (m) => m.MultipleChoiceComponent
       ),
     input: { question: 'question' },

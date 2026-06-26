@@ -1,0 +1,47 @@
+<div class="flex h-[calc(100vh-4rem)] flex-col overflow-hidden">
+
+  <!-- Toolbar -->
+  <header class="flex h-14 shrink-0 items-center gap-3 border-b border-border/50 bg-background px-4">
+    <nav hlmBreadcrumb>
+      <ol hlmBreadcrumbList>
+        <li hlmBreadcrumbItem>
+          <a hlmBreadcrumbLink link="/plans">Plans</a>
+        </li>
+        <li hlmBreadcrumbSeparator></li>
+        <li hlmBreadcrumbItem>
+          <span hlmBreadcrumbPage>Edit Plan</span>
+        </li>
+      </ol>
+    </nav>
+    <div class="ml-auto flex items-center gap-2">
+      @if (planId()) {
+        <a [routerLink]="['/plan', planId(), 'preview']" hlmBtn variant="outline" size="sm">
+          Preview
+        </a>
+      }
+      <button hlmBtn variant="outline" size="sm">Save Draft</button>
+      <button hlmBtn size="sm">Publish</button>
+    </div>
+  </header>
+
+  <!-- 3-column workspace -->
+  <div class="grid min-h-0 flex-1 grid-cols-[260px_1fr_320px] divide-x divide-border/50">
+    <planportal-questionsidebar />
+
+    @if (planId() && stateService.activeQuestionState()) {
+      <planportal-editorcanvas />
+      <planportal-questioneditor />
+    } @else {
+      <div class="flex h-full items-center justify-center bg-muted/5 col-span-2">
+        <p class="text-sm text-muted-foreground">
+          @if (!planId()) {
+            Select or create a plan to start editing.
+          } @else {
+            No questions yet. Add one to get started.
+          }
+        </p>
+      </div>
+    }
+  </div>
+
+</div>

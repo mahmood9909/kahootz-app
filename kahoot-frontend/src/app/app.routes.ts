@@ -19,21 +19,19 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/dashboard/dashboard.page.component').then((m) => m.DashboardPageComponent),
   },
   {
-    path: 'quizzes',
-    loadComponent: () => import('./pages/quizesplan/quizesplan.page.component').then((m) => m.QuizesplanPageComponent),
+    path: 'plans',
+    loadComponent: () => import('./pages/plans/plans.page.component').then((m) => m.PlansPageComponent),
   },
   {
-    path: 'quiz',
-    loadComponent: () => import('./pages/quizeportal/quizeportal.page.component').then((m) => m.QuizeportalPageComponent),
-    children: [
-      {
-        path: ':id',
-        loadComponent: () => import('./pages/quizeportal/create/quizecreate.page.component').then((m) => m.QuizecreatePageComponent),
-      },
-      {
-        path: ':id/preview',
-        loadComponent: () => import('./pages/quizeportal/preview/quizepreview.page.component').then((m) => m.QuizepreviewPageComponent),
-      },
-    ],
+    path: 'plan',
+    loadComponent: () => import('./pages/planportal/create/plancreate.page.component').then((m) => m.PlancreatePageComponent),
+  },
+  {
+    path: 'plan/:id',
+    loadComponent: () => import('./pages/planportal/create/plancreate.page.component').then((m) => m.PlancreatePageComponent),
+  },
+  {
+    path: 'plan/:id/preview',
+    loadComponent: () => import('./pages/planportal/preview/planpreview.page.component').then((m) => m.PlanpreviewPageComponent),
   },
 ];
