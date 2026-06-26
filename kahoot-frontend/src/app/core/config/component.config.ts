@@ -4,7 +4,6 @@ import { QType } from '@app-types';
 export type QuestionComponentEntry = {
   componentName : string;
   component: () => Promise<any>;
-  input: { [key: string]: any };
   type: QType;
 };
 type ComponentInputs<T> = {
@@ -24,7 +23,6 @@ const defaultRegistry: QuestionComponentRegistry = {
       import('../../pages/planportal/components/shared/components/questiontype/truefalse/truefalse.component').then(
         (m) => m.TrueFalseComponent
       ),
-    input: { question: 'question' },
     type: 'true-false',
     componentName: 'True and False',
   },
@@ -33,7 +31,6 @@ const defaultRegistry: QuestionComponentRegistry = {
       import('../../pages/planportal/components/shared/components/questiontype/multiplechoice/multiplechoice.component').then(
         (m) => m.MultipleChoiceComponent
       ),
-    input: { question: 'question' },
     type: 'multiple-choice',
     componentName: 'Multiple Choice',
   },

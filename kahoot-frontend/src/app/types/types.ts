@@ -21,7 +21,7 @@ export type QStruct = {
   timeLimit: number;
   imageUrl?: string;
   type: QType;
-  options: QOptionsStruct[];
+  options?: QOptionsStruct[];
   answers?: string[];
 };
 

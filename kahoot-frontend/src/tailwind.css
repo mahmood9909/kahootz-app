@@ -25,6 +25,7 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-wrapper-background : var(--input);
 }
 
 /* Design tokens — zinc palette (matches Spartan UI default) */

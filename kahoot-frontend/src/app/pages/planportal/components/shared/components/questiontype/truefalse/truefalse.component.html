@@ -1,6 +1,13 @@
-<div class="flex h-full flex-col">
-  <planportal-questioncontentcard
-    [question]="question()"
-    (questionChange)="questionChange.emit($event)"
-  />
-</div>
+<!-- Parent must have a defined height for h-full to work -->
+<!-- or h-full if its parent also has height -->
+  <div class="h-full px-6 pt-6 flex flex-col gap-4">
+    
+    <planportal-questioncontentcard [field]="formModel.title" />
+
+    <div class="flex-1 overflow-y-auto dark:bg-wrapper-background/30 rounded-md border px-2.5 py-1">
+      @for (item of this.formModel().value().options; track $index) {
+        <div>test</div>
+      }
+    </div>
+
+  </div>

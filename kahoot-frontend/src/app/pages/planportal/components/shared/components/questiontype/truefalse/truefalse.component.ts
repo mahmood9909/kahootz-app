@@ -1,15 +1,40 @@
-import { ChangeDetectionStrategy, Component, input, output  } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, output, signal } from '@angular/core';
 import { QStruct } from '@app-types';
 import { QuestionContentcardComponent } from '../../questioncontentcard/questioncontentcard.component';
+import { form } from '@angular/forms/signals';
+import { QuestionStateManagementService } from '@core/services/question.statemanagment.service';
+import { QTrueFalseOption } from './componenets/optiontruefalse/optiontruefalse';
+
+interface TrueFalseModel {
+  title: string;
+
+}
 
 @Component({
   selector: 'planportal-truefalse',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [QuestionContentcardComponent],
+  imports: [QuestionContentcardComponent , QTrueFalseOption],
   templateUrl: './truefalse.component.html',
 })
 export class TrueFalseComponent {
-  readonly question = input.required<QStruct>();
-  readonly questionChange = output<QStruct>();
+
+  //region state controller
+  readonly stateService = inject(QuestionStateManagementService);
+  //endregion
+
+  //region component ctx controller
+  private readonly _model = signal<Partial<QStruct>>
+  ({ 
+    title: this.stateService.activeQuestionState().title ?? '' ,
+    options : this.stateService.activeQuestionState().options ?? []  
+  });
+
+  readonly formModel = form(this._model);
+  //endregion
+
+  t(){
+    this.formModel().value().options
+  }
+
 
 }

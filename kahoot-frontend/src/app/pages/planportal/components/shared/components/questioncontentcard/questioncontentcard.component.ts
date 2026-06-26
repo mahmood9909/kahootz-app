@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
+import { FieldTree, FormField } from '@angular/forms/signals';
 import { QStruct } from '@app-types';
 import { HlmInputImports } from '@ui-lib/input/src';
 
@@ -6,13 +7,8 @@ import { HlmInputImports } from '@ui-lib/input/src';
   selector: 'planportal-questioncontentcard',
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './questioncontentcard.component.html',
-  	imports: [HlmInputImports],
+  	imports: [HlmInputImports , FormField],
 })
 export class QuestionContentcardComponent {
-  readonly question = input.required<QStruct>();
-  readonly questionChange = output<QStruct>();
-
-  onNameChange(name: string): void {
-    this.questionChange.emit({ ...this.question(), name });
-  }
+  readonly field = input.required<any>();
 }

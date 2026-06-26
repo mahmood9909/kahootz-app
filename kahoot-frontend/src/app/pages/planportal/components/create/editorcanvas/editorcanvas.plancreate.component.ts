@@ -33,6 +33,5 @@ export class EditorcanvasComponent {
     const config = this.questionComponentConfig[this.stateService.activeQuestionState().type];
     this.containerRef().clear();
     this.componentRef = this.containerRef().createComponent(await config.component());
-    this.componentRef.setInput(config.input['question'], question);
   }
 }
