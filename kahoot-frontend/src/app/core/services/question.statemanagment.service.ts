@@ -40,7 +40,7 @@ export class QuestionStateManagementService {
     readonly activeIndex = signal(0);
     readonly activeQuestion = linkedSignal(() => this.questions()[this.activeIndex()] ?? null);
 
-    // state for captured planId from route param and based on that we can manage the active question id and index
+    // state for captured quizId from route param and based on that we can manage the active question id and index
     readonly activeQuestionIdState = signal<string | null>(null);
     readonly activeQuestionIdxState = linkedSignal(() => this.questions().findIndex((q) => q.id === this.activeQuestionIdState()) ?? undefined);
     readonly activeQuestionState = linkedSignal(() => this.questions()[this.activeQuestionIdxState()] ?? {});

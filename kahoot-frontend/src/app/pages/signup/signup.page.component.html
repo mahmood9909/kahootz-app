@@ -1,3 +1,58 @@
 <div class="flex min-h-screen items-center justify-center">
-  <h1 class="text-3xl font-bold">Sign Up</h1>
+  <div hlmCard class="w-full max-w-sm">
+    <div hlmCardHeader>
+      <h2 hlmCardTitle>Create Account</h2>
+      <p hlmCardDescription>Fill in the details below to get started</p>
+    </div>
+    <form [formRoot]="signUpForm">
+      <div hlmCardContent class="space-y-4">
+        <div class="space-y-1.5">
+          <label hlmLabel for="email">Email</label>
+          <input
+            hlmInput
+            id="email"
+            type="email"
+            placeholder="you@example.com"
+            [formField]="signUpForm.email"
+          />
+          @if (signUpForm.email().invalid() && signUpForm.email().touched()) {
+            <p class="text-destructive text-xs">Enter a valid email address</p>
+          }
+        </div>
+        <div class="space-y-1.5">
+          <label hlmLabel for="password">Password</label>
+          <input
+            hlmInput
+            id="password"
+            type="password"
+            placeholder="••••••••"
+            [formField]="signUpForm.password"
+          />
+          @if (signUpForm.password().invalid() && signUpForm.password().touched()) {
+            <p class="text-destructive text-xs">Password must be at least 8 characters</p>
+          }
+        </div>
+        <div class="space-y-1.5">
+          <label hlmLabel for="confirmPassword">Confirm Password</label>
+          <input
+            hlmInput
+            id="confirmPassword"
+            type="password"
+            placeholder="••••••••"
+            [formField]="signUpForm.confirmPassword"
+          />
+          @if (signUpForm.confirmPassword().touched() && signUpForm().invalid()) {
+            <p class="text-destructive text-xs">Passwords do not match</p>
+          }
+        </div>
+      </div>
+      <div hlmCardFooter class="flex-col gap-2">
+        <button hlmBtn type="submit" class="w-full">Create Account</button>
+        <p class="text-muted-foreground text-center text-sm">
+          Already have an account?
+          <a routerLink="/sign-in" class="text-primary underline">Sign In</a>
+        </p>
+      </div>
+    </form>
+  </div>
 </div>

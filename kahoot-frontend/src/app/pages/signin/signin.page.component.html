@@ -1,3 +1,45 @@
 <div class="flex min-h-screen items-center justify-center">
-  <h1 class="text-3xl font-bold">Sign In</h1>
+  <div hlmCard class="w-full max-w-sm">
+    <div hlmCardHeader>
+      <h2 hlmCardTitle>Sign In</h2>
+      <p hlmCardDescription>Enter your credentials to continue</p>
+    </div>
+    <form [formRoot]="signInForm">
+      <div hlmCardContent class="space-y-4">
+        <div class="space-y-1.5">
+          <label hlmLabel for="email">Email</label>
+          <input
+            hlmInput
+            id="email"
+            type="email"
+            placeholder="you@example.com"
+            [formField]="signInForm.email"
+          />
+          @if (signInForm.email().invalid() && signInForm.email().touched()) {
+            <p class="text-destructive text-xs">Enter a valid email address</p>
+          }
+        </div>
+        <div class="space-y-1.5">
+          <label hlmLabel for="password">Password</label>
+          <input
+            hlmInput
+            id="password"
+            type="password"
+            placeholder="••••••••"
+            [formField]="signInForm.password"
+          />
+          @if (signInForm.password().invalid() && signInForm.password().touched()) {
+            <p class="text-destructive text-xs">Password is required</p>
+          }
+        </div>
+      </div>
+      <div hlmCardFooter class="flex-col gap-2">
+        <button hlmBtn type="submit" class="w-full">Sign In</button>
+        <p class="text-muted-foreground text-center text-sm">
+          Don't have an account?
+          <a routerLink="/sign-up" class="text-primary underline">Sign Up</a>
+        </p>
+      </div>
+    </form>
+  </div>
 </div>

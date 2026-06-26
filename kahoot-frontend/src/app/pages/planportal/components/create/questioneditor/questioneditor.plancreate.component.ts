@@ -49,7 +49,7 @@ export class QuestioneditorComponent {
   }
 
   onTypeChange(type: QType): void {
-    this.stateService.updateQuestion({ ...this.question(), type });
+    this.stateService.activeQuestionState.update(old => ({...old , type : type}) )
   }
 
   onPointsChange(points: number): void {

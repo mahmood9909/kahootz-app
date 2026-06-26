@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output  } from '@angular/core';
 import { QStruct } from '@app-types';
 import { QuestionContentcardComponent } from '../../questioncontentcard/questioncontentcard.component';
 
@@ -11,4 +11,5 @@ import { QuestionContentcardComponent } from '../../questioncontentcard/question
 export class TrueFalseComponent {
   readonly question = input.required<QStruct>();
   readonly questionChange = output<QStruct>();
+
 }
