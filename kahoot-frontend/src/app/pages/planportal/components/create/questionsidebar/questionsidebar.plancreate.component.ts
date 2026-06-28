@@ -37,23 +37,4 @@ export class QuestionsidebarComponent {
   readonly newQuestionDescription = signal('');
   readonly newQuestionType = signal<QType>('multiple-choice');
 
-  constructor() {
-    console.log('QuestionsidebarComponent initialized with planId:', this.planId());
-  }
-  readonly questionTypeLabel = (value: string): string =>
-    ({ 'multiple-choice': 'Multiple Choice', 'true-false': 'True / False' })[value] ?? value;
-
-  initDialog(): void {
-    this.newQuestionName.set(`Question ${this.stateService.questions().length + 1}`);
-    this.newQuestionDescription.set('');
-    this.newQuestionType.set('multiple-choice');
-  }
-
-  confirmAdd(): void {
-    this.stateService.addQuestion({
-      name: this.newQuestionName(),
-      description: this.newQuestionDescription(),
-      type: this.newQuestionType(),
-    });
-  }
 }

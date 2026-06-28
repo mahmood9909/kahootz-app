@@ -1,1 +1,8 @@
-<p>optiontruefalse works!</p>
+
+<div class="card flex-1 rounded-lg border border-input min-h-20 flex justify-center items-center px-2.5">
+    <input class="flex-1 focus:outline-none focus:ring-0" [formField]="input().title" />
+     <button hlmBtn variant="ghost" size="icon" align="end" aria-label="User menu" (click)="colorPicker.click()">
+        <ng-icon name="lucideUser" class="size-5" />
+      </button>
+      <input hidden type="color" class="" id="favcolor" name="favcolor" value="#ff0000" #colorPicker>
+</div>

@@ -13,8 +13,9 @@ interface TrueFalseModel {
 @Component({
   selector: 'planportal-truefalse',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [QuestionContentcardComponent , QTrueFalseOption],
+  imports: [QuestionContentcardComponent, QTrueFalseOption],
   templateUrl: './truefalse.component.html',
+  host: { class: 'block h-full' },
 })
 export class TrueFalseComponent {
 
@@ -24,16 +25,26 @@ export class TrueFalseComponent {
 
   //region component ctx controller
   private readonly _model = signal<Partial<QStruct>>
-  ({ 
-    title: this.stateService.activeQuestionState().title ?? '' ,
-    options : this.stateService.activeQuestionState().options ?? []  
-  });
+    ({
+      title: this.stateService.activeQuestionState().title ?? '',
+      options: this.stateService.activeQuestionState().options ?? []
+    });
 
   readonly formModel = form(this._model);
   //endregion
 
-  t(){
-    this.formModel().value().options
+  t() {
+    // if (this.formModel.options!!() && this.formModel.options!!().value.length <= 2) return;
+    this.formModel.options!!().value.update(old =>
+      [...old,
+      {
+        id: crypto.randomUUID(),
+        title: 'test new title',
+        config: { cssClass: 'option-london' }
+      }
+      ])
+    //  { id: crypto.randomUUID(), title: 'test new title', config: { cssClass: 'option-london' } },
+    // )
   }
 
 

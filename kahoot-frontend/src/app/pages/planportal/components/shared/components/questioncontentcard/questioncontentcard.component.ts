@@ -7,7 +7,7 @@ import { HlmInputImports } from '@ui-lib/input/src';
   selector: 'planportal-questioncontentcard',
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './questioncontentcard.component.html',
-  	imports: [HlmInputImports , FormField],
+  imports: [HlmInputImports, FormField],
 })
 export class QuestionContentcardComponent {
   readonly field = input.required<any>();
